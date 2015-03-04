@@ -1,0 +1,12 @@
+.. -*-restructuredtext-*-
+
+This application is a fork from https://bitbucket.org/ubernostrum/django-contact-form/src/4b7d2fa20c1d?at=default with multilingual and reply-to support. I did a pull request there in 2014 with no response, so I don't think is still maintained. 
+
+I love this app but I needed that changes, so I had to do this fork, also moved it to Git (It was on Mercurial).
+
+
+This application provids simple, extensible contact-form functionality
+for `Django <https://www.djangoproject.com/>`_ sites.
+
+Full documentation for all functionality is included and is also
+`available online <http://django-contact-form.readthedocs.org/>`_.
