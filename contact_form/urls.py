@@ -8,6 +8,7 @@ include this URLConf somewhere in your URL hierarchy (for example, at
 """
 
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from contact_form.views import ContactFormView
 
@@ -21,4 +22,4 @@ urlpatterns = [
                                template_name='contact_form/contact_form_sent.html'
                                ),
                            name='contact_form_sent'),
-                       ]
+                       
