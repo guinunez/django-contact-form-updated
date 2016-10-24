@@ -123,33 +123,33 @@ class ContactForm(forms.Form):
     that argument defaults to ``False``, on the assumption that it's
     far better to notice errors than to silently not send mail from
     the contact form.
-    
+
     """
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
         if request is None:
             raise TypeError("Keyword argument 'request' must be supplied")
         super(ContactForm, self).__init__(data=data, files=files, *args, **kwargs)
         self.request = request
-    
+
     name = forms.CharField(max_length=100,
                            label=_(u'Your name'))
     email = forms.EmailField(max_length=200,
                              label=_(u'Your email address'))
     message = forms.CharField(widget=forms.Textarea,
                               label=_(u'Your message'))
-    
+
     from_email = settings.DEFAULT_FROM_EMAIL
-    
+
     to = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
 
     subject_template_name = "contact_form/contact_form_subject.txt"
-    
+
     template_name = 'contact_form/contact_form.txt'
 
     def body(self):
         """
         Render the body of the message to a string.
-        
+
         """
         if callable(self.template_name):
             template_name = self.template_name()
@@ -157,16 +157,16 @@ class ContactForm(forms.Form):
             template_name = self.template_name
         return loader.render_to_string(template_name,
                                        self.get_context())
-    
+
     def subject(self):
         """
         Render the subject of the message to a string.
-        
+
         """
         subject = loader.render_to_string(self.subject_template_name,
                                           self.get_context())
         return ''.join(subject.splitlines())
-    
+
     def get_context(self):
         """
         Return the context used to render the templates for the email
@@ -181,7 +181,7 @@ class ContactForm(forms.Form):
 
         * Any additional variables added by context processors (this
           will be a ``RequestContext``).
-        
+
         """
         if not self.is_valid():
             raise ValueError("Cannot generate Context from invalid contact form")
@@ -192,7 +192,7 @@ class ContactForm(forms.Form):
         return RequestContext(self.request,
                               dict(self.cleaned_data,
                                    site=site))
-    
+
     def get_message_dict(self):
         """
         Generate the various parts of the message and return them in a
@@ -208,7 +208,7 @@ class ContactForm(forms.Form):
         * ``to``
 
         * ``subject``
-        
+
         """
         if not self.is_valid():
             raise ValueError("Message cannot be sent from invalid contact form")
@@ -221,8 +221,7 @@ class ContactForm(forms.Form):
     def save(self, fail_silently=False):
         """
         Build and send the email message.
-        
+
         """
-        print self.cleaned_data['email']
         msg = EmailMessage(headers = {'Reply-To': self.cleaned_data['email']}, **self.get_message_dict())
         msg.send(fail_silently=fail_silently)
