@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template import loader
 from django.template import RequestContext
-from django.contrib.sites.models import RequestSite
+from django.contrib.sites.requests import RequestSite
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 
