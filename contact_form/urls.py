@@ -7,14 +7,12 @@ include this URLConf somewhere in your URL hierarchy (for example, at
 
 """
 
-from django.conf.urls import patterns
 from django.conf.urls import url
-from django.views.generic import TemplateView
 
 from contact_form.views import ContactFormView
 
 
-urlpatterns = patterns('',
+urlpatterns = [
                        url(r'^$',
                            ContactFormView.as_view(),
                            name='contact_form'),
@@ -23,4 +21,4 @@ urlpatterns = patterns('',
                                template_name='contact_form/contact_form_sent.html'
                                ),
                            name='contact_form_sent'),
-                       )
+                       ]
