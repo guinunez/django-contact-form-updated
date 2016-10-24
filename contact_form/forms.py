@@ -217,7 +217,7 @@ class ContactForm(forms.Form):
             attr = getattr(self, message_part)
             message_dict[message_part] = attr() if callable(attr) else attr
         return message_dict
-    
+
     def save(self, fail_silently=False):
         """
         Build and send the email message.
